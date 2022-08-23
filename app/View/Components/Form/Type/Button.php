@@ -15,10 +15,13 @@ class Button extends Component
 
     public $class;
 
-    public function __construct($type, $class)
+    public $value;
+
+    public function __construct($type, $class, $value)
     {
         $this->type  = $type;
         $this->class = $class;
+        $this->value = $value;
     }
     /**
      * Get the view / contents that represent the component.
