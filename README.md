@@ -1,64 +1,73 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Tugas Pembekalan Backend Developer ADS Intern
+## Afrida Rohmatin Nuriyah
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### Mini Project: Web Blog  
+<br/>
 
-## About Laravel
+## Route:
+```
+- /
+- /about
+- /login
+- /register
+- /blogs
+- /users
+```
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Halaman Home ('/')  
+Pada route '/' menggunakan controller `HomeController` yang merupakan controller yang hanya memiliki satu method yaitu invoke. Pada HomeController, route ini akan diarahkan ke view `home.blade.php` yang berisi 'This is Home'
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Halaman About ('/about')  
+Pada route '/about' akan mengarah kepada halaman about yang menggunakan controller `PageController` dan method `about`. Pada method `about` di controller `PageController` akan mengembalikan view `about.blade.php`. Di dalam `about.blade.php`, menggunakan beberapa component seperti component `app-layout2` yang didalamnya memuat `navigation bar` serta ada juga component `card` untuk menampung isi dari content About yang dapat mengirimkan data `title`. Dapat dilihat di source code, untuk memanggil component dapat menggunakan  
+```php
+<x-app-layout2>
+```
+dan
+```php  
+<x-card>
+```  
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Halaman Login ('/login')  
+Pada route ('/login') akan mengarah kepada halaman login yang menggunakan controller `PageController` dan method `login`. Pada method `login` di controller `PageController` akan mengembalikan view `login.blade.php`. Di dalam `login.blade.php`, menggunakan beberapa component seperti component `app-layout2` yang didalamnya memuat `navigation bar` serta ada juga component `input` untuk membuat form dengan mengirimkan data seperti id input dan name input. Selain itu, pada login terdapat juga component `button` yang digunakan untuk menampilkan button dengan mengirimkan data berupa type button dan class button. Dapat dilihat di source code, untuk memanggil component dapat menggunakan  
+```php
+<x-app-layout2>
+```
+```php  
+<x-input>
+```  
+```php  
+<x-button>
+```  
 
-## Learning Laravel
+## Halaman Register ('/register')  
+Pada route ('/register') akan mengarah kepada halaman register yang menggunakan controller `PageController` dan method `register`. Pada method `register` di controller `PageController` akan mengembalikan view `register.blade.php`. Di dalam `register.blade.php`, menggunakan beberapa component seperti component `app-layout2` yang didalamnya memuat `navigation bar` serta ada juga component `input` untuk membuat form dengan mengirimkan data seperti id input dan name input. Selain itu, pada register terdapat juga component `button` yang digunakan untuk menampilkan button dengan mengirimkan data berupa type button dan class button. Dapat dilihat di source code, untuk memanggil component dapat menggunakan  
+```php
+<x-app-layout2>
+```
+```php  
+<x-form.type.input>
+```  
+```php  
+<x-form.type.button>
+```  
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Halaman Blogs ('/blogs')  
+Pada route ('/blogs') akan mengarah kepada halaman blogs yang akan menampilkan seluruh blogs yang dimiliki web ini. Route ini menggunakan controller `BlogController` dan method `index`. Pada method `index` di controller `BlogController` terdapat variabel `$blogs` yang menyimpan data array dari kumpulan blog kemudian akan mengembalikan view `blogs.blade.php` serta mengirimkan data `$blogs` tadi. Di dalam `blogs.blade.php`, menggunakan beberapa component seperti component `app-layout2` yang didalamnya memuat `navigation bar` serta ada juga looping menggunakan `@foreach` untuk menampilkan `$blogs` yang dikirim dari `BlogController`. Selain itu, pada register terdapat juga component `button` yang digunakan untuk menampilkan button dengan mengirimkan data berupa type button dan class button. Dapat dilihat di source code, untuk memanggil component dapat menggunakan  
+```php
+<x-app-layout2>
+```
+```php  
+<x-card>
+```  
+```php  
+<x-form.type.button>
+```  
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Halaman Users ('/users')
+Pada route ('/users') akan mengarah kepada halaman users yang akan menampilkan seluruh data user yang disimpan di `UserController`. Route ini menggunakan controller `UserController` dan method `index`. Pada method `index` di controller `UserController` akan mengembalikan view `index.blade.php`. Di dalam `index.blade.php`, menggunakan beberapa component seperti component `app-layout2` yang didalamnya memuat `navigation bar` serta ada juga component `card` untuk menampilkan tabel, yang di dalam tabel tersebut digunakan looping `@foreach` untuk menampikan seluruh user dari `$users` yang dikirim oleh `UserController`. Selain itu, pada users terdapat **middleware** adminkey yang terdapat di `AuthHelper.php`. Di mana jika tidak menuliskan key tersebut maka halaman users tidak dapat diakses dan menampilkan **403 Forbidden** Dapat dilihat di source code, untuk memanggil component dapat menggunakan  
+```php
+<x-app-layout2>
+```
+```php  
+<x-card>
+```  
