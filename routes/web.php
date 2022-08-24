@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,16 +18,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', HomeController::class);
 
-Route::get('/', fn () => view('home'));
+Route::controller(PageController::class)->group(function () {
+  Route::get('/about', 'about');
+  Route::get('/login', 'login');
+  Route::get('/register', 'register');
+});
 
-Route::get('/about', fn () => view('about'));
 
-Route::get('/blogs', fn () => view('blogs'));
+Route::get('/blogs', [BlogController::class, 'index']);
 
-Route::get('login', fn () => view('login'));
+Route::middleware('adminkey')->group(function () {
+  Route::get('users', [UserController::class, 'index']);
+});
 
-Route::get('register', fn () => view('register'));
+Route::get('users/{user}', [UserController::class, 'show']);
