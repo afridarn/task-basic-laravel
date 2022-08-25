@@ -74,6 +74,7 @@ Pada route ('/users') akan mengarah kepada halaman users yang akan menampilkan s
 ```  
 
 ## Penjelasan Tugas 3  
+<<<<<<< HEAD
 Membuat `table users` melalui migration dengan kolom-kolom yang diminta pada soal
 ```php
 public function up()
@@ -215,3 +216,6 @@ Memanggil class masing-masing seeder dalam `DatabaseSeeder.php`
 ```  
   
 Menjalankan command **php artisan migrate --seed**
+=======
+Writing on process
+>>>>>>> 53b1e2f1b48cc419f2a4abfe83b7f0d0041e7aa8
