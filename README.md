@@ -74,4 +74,144 @@ Pada route ('/users') akan mengarah kepada halaman users yang akan menampilkan s
 ```  
 
 ## Penjelasan Tugas 3  
-In the process of writing
+Membuat `table users` melalui migration dengan kolom-kolom yang diminta pada soal
+```php
+public function up()
+    {
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('city');
+            $table->timestamps();
+        });
+    }  
+```  
+Membuat `table stores` melalui migration. Tabel stores memiliki relasi dengan tabel users yaitu one to one sehingga ada column `user_id` sebagai foreign key yang mereference ke `tabel users` column id  
+```php
+ public function up()
+    {
+        Schema::create('stores', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', 45);
+            $table->foreignId('user_id')->constrained();
+            $table->timestamps();
+        });
+    }
+```
+Membuat `table products` melalui migration. Tabel products memiliki relasi dengan tabel stores yaitu many to one sehingga terdapat column `store_id` sebagai foreign key yang mereference ke `tabel stores` dengan column id
+```php
+public function up()
+    {
+        Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('slug');
+            $table->double('price');
+            $table->longText('description');
+            $table->string('photo');
+            $table->foreignId('store_id')->constrained();
+            $table->timestamps();
+        });
+    }
+```
+Membuat `table product_reviews` melalui migration. Tabel product_reviews memiliki relasi dengan tabel products yaitu many to one sehingga terdapat column `product_id` sebagai foreign key yang mereference ke `table products` dengan column id. Selain itu, tabel ini juga memiliki relasi ke tabel users yaitu many to one sehingga terdapat column `user_id` sebagai foreign key yang mereference ke `table users` tepatnya column id.  
+```php
+public function up()
+    {
+        Schema::create('product_reviews', function (Blueprint $table) {
+            $table->id();
+            $table->integer('score');
+            $table->string('review');
+            $table->foreignId('product_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->timestamps();
+        });
+    }
+```
+Membuat `factory` untuk user pada file `UserFactory.php` agar mengembalikan data dummy yang diminta
+```php
+public function definition()
+    {
+        return [
+            'name' => fake()->name(),
+            'email' => fake()->safeEmail(),
+            'city' => fake()->city(),
+        ];
+    }
+```
+Memanggil `UserFactory` di `DatabaseSeeder.php` agar saat seeder dijalankan data users dapat terbentuk
+```php
+  public function run()
+    {
+        \App\Models\User::factory(10)->create();
+    }
+```  
+Membuat 3 file seeder: `StoreSeeder.php`, `ProductSeeder.php`, dan `ProductReviewSeeder.php` untuk membuat data dummy masing-masing table. Di sini saya menggunakan factory via seeder dengan menjalankan looping untuk 10 data menggunakan bantuan faker 
+
+**StoreSeeder.php**
+```php
+public function run()
+    {
+        //
+        $faker = \Faker\Factory::create();
+        for ($i = 0; $i < 10; $i++) {
+            DB::table('stores')->insert([
+                'name'    => Str::ucfirst($faker->asciify('**** store')),
+                'user_id' => $faker->numberBetween(1, 10),
+                'created_at' => $created_at = now()->subDays(rand(1, 100)),
+                'updated_at' => $created_at
+            ]);
+        }
+    }
+```
+**ProductSeeder.php**
+```php
+ public function run()
+    {
+        //
+        $faker = \Faker\Factory::create();
+        for ($i = 0; $i < 10; $i++) {
+            DB::table('products')->insert([
+                'name'    => Str::ucfirst($faker->word()),
+                'slug'      => $faker->unique()->slug(),
+                'price'       => $faker->randomFloat(2, 1000, 100000),
+                'description' => Str::ucfirst($faker->paragraph()),
+                'photo'       => $faker->imageUrl(),
+                'store_id'    => $faker->numberBetween(1, 10),
+                'created_at' => $created_at = now()->subDays(rand(1, 100)),
+                'updated_at' => $created_at
+            ]);
+        }
+    }
+```
+**ProductReviewSeeder.php**
+```php
+public function run()
+    {
+        //
+        $faker = \Faker\Factory::create();
+        for ($i = 0; $i < 10; $i++) {
+            DB::table('product_reviews')->insert([
+                'score' => $faker->numberBetween(1, 10),
+                'review' => Str::ucfirst($faker->paragraph()),
+                'product_id' => $faker->numberBetween(1, 10),
+                'user_id' => $faker->numberBetween(1, 10),
+                'created_at' => $created_at = now()->subDays(rand(1, 100)),
+                'updated_at' => $created_at
+            ]);
+        }
+    }
+```  
+Memanggil class masing-masing seeder dalam `DatabaseSeeder.php`  
+```php
+  public function run()
+    {
+        \App\Models\User::factory(10)->create();
+        $this->call(StoreSeeder::class);
+        $this->call(ProductSeeder::class);
+        $this->call(ProductReviewSeeder::class);
+    }
+```  
+  
+Menjalankan command **php artisan migrate --seed**
