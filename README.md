@@ -74,7 +74,6 @@ Pada route ('/users') akan mengarah kepada halaman users yang akan menampilkan s
 ```  
 
 ## Penjelasan Tugas 3  
-<<<<<<< HEAD
 Membuat `table users` melalui migration dengan kolom-kolom yang diminta pada soal
 ```php
 public function up()
