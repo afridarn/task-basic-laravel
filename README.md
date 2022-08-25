@@ -4,6 +4,7 @@
 ### Mini Project: Web Blog  
 <br/>
 
+### Penjelasan Tugas 1 dan 2
 ## Route:
 ```
 - /
@@ -71,3 +72,6 @@ Pada route ('/users') akan mengarah kepada halaman users yang akan menampilkan s
 ```php  
 <x-card>
 ```  
+
+## Penjelasan Tugas 3  
+In the process of writing
