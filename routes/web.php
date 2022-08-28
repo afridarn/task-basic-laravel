@@ -5,6 +5,10 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RegisterController;
+
 
 
 /*
@@ -22,10 +26,23 @@ Route::get('/', HomeController::class);
 
 Route::controller(PageController::class)->group(function () {
   Route::get('/about', 'about');
-  Route::get('/login', 'login');
-  Route::get('/register', 'register');
 });
 
+Route::prefix('dashboard/products')->middleware('auth')->group(function () {
+  Route::get('/', [ProductController::class, 'index']);
+  Route::get('/create', [ProductController::class, 'create']);
+  Route::post('/create', [ProductController::class, 'store']);
+  Route::get('/update/{slug}', [ProductController::class, 'updateForm']);
+  Route::get('/update/{slug}', [ProductController::class, 'update']);
+  Route::get('/delete/{slug}', [ProductController::class, 'destroy']);
+});
+
+Route::get('/register', [RegisterController::class, 'index']);
+Route::post('/register', [RegisterController::class, 'store']);
+
+Route::get('/login', [LoginController::class, 'index'])->middleware('guest')->name('login');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('/blogs', [BlogController::class, 'index']);
 

@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'city',
     ];
 
     /**
@@ -41,4 +42,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function store()
+    {
+        return $this->hasOne(Store::class);
+    }
+
+    public function productReview()
+    {
+        return $this->hasMany(ProductReview::class);
+    }
 }

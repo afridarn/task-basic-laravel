@@ -4,7 +4,7 @@ namespace App\View\Components\Form\Type;
 
 use Illuminate\View\Component;
 
-class Input extends Component
+class input extends Component
 {
     /**
      * Create a new component instance.
@@ -17,13 +17,13 @@ class Input extends Component
 
     public $class;
 
-    public function __construct($name, $id, $class)
+    public function __construct($name, $id, $class, $type)
     {
         $this->name  = $name;
         $this->id    = $id;
         $this->class = $class;
+        $this->type  = $type;
     }
-
     /**
      * Get the view / contents that represent the component.
      *
