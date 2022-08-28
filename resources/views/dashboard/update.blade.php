@@ -5,6 +5,7 @@
                 <h1 class="h3 mb-3 fw-normal text-center">Update Product</h1>
                 <form action="/dashboard/products/update/{{ $product->slug }}" method="POST">
                     @csrf
+                    {{ method_field('PUT') }}
                     <div class="form-floating">
                         <input type="text" name="name"
                             class="form-control rounded-top @error('name') is-invalid @enderror" id="name"

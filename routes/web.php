@@ -33,8 +33,8 @@ Route::prefix('dashboard/products')->middleware('auth')->group(function () {
   Route::get('/create', [ProductController::class, 'create']);
   Route::post('/create', [ProductController::class, 'store']);
   Route::get('/update/{slug}', [ProductController::class, 'updateForm']);
-  Route::get('/update/{slug}', [ProductController::class, 'update']);
-  Route::get('/delete/{slug}', [ProductController::class, 'destroy']);
+  Route::put('/update/{slug}', [ProductController::class, 'update']);
+  Route::delete('/delete/{slug}', [ProductController::class, 'destroy']);
 });
 
 Route::get('/register', [RegisterController::class, 'index']);

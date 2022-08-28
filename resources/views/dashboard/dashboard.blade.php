@@ -43,10 +43,12 @@
                         <td>{{ $product->description }}</td>
                         <td><img src="{{ $product->photo }}" alt="{{ $product->name }}" width="100"></td>
                         <td>
-                            <form action="/dashboard/products/update/{{ $product->slug }}" method="PUT">
+                            <form action="/dashboard/products/update/{{ $product->slug }}" method="GET">
                                 <button class="border-0 bg-warning text-white">Edit</button>
                             </form>
-                            <form action="/dashboard/products/delete/{{ $product->slug }}" method="DELETE">
+                            <form action="/dashboard/products/delete/{{ $product->slug }}" method="POST">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
                                 <button class="border-0 bg-danger text-white">Delete</button>
                             </form>
                         </td>
