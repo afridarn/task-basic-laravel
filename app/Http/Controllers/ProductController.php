@@ -19,15 +19,15 @@ class ProductController extends Controller
         if (request()->ajax()) {
             return DataTables::of($data)
                 ->addIndexColumn()
-                // ->addColumn('photo', function ($row) {
-                //     $slug = $row->photo;
-                //     $render2 =
-                //         '
-                //         <img src="' . $slug . ' alt="' . $row->name . '>
-                //     ';
+                ->addColumn('photo', function ($row) {
+                    $slug = $row->photo;
+                    $render2 =
+                        '
+                        <img src="' . $slug . ' alt="' . $row->name . '>
+                    ';
 
-                //     return $render2;
-                // })
+                    return $render2;
+                })
                 ->addColumn('action', function ($row) {
                     $slug = $row->slug;
                     $render =
@@ -42,7 +42,7 @@ class ProductController extends Controller
 
                     return $render;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['photo', 'action'])
                 ->make(true);
         }
         return view('dashboard.dashboard');
