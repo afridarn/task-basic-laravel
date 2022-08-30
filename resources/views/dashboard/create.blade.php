@@ -1,4 +1,4 @@
-<x-app-layout2 title='Register'>
+<x-app-layout2 title='Add New Product'>
     <div class="row justify-content-center">
         <div class="col-lg-5">
             <main class="form-registration w-100 m-auto">

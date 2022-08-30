@@ -6,15 +6,46 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use Illuminate\Support\Str;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
 {
     public function index()
     {
         $user = Auth::user();
-        return view('dashboard.dashboard', [
-            'products' => $user->store->product,
-        ]);
+
+        $data = $user->store->product;
+
+        if (request()->ajax()) {
+            return DataTables::of($data)
+                ->addIndexColumn()
+                // ->addColumn('photo', function ($row) {
+                //     $slug = $row->photo;
+                //     $render2 =
+                //         '
+                //         <img src="' . $slug . ' alt="' . $row->name . '>
+                //     ';
+
+                //     return $render2;
+                // })
+                ->addColumn('action', function ($row) {
+                    $slug = $row->slug;
+                    $render =
+                        '
+                        <form action="/dashboard/products/update/' . $slug . ' method="GET">
+                                <button class="btn btn-warning">Edit</button>
+                            </form>
+                        <form action="/dashboard/products/delete/' . $slug . ' method="GET">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                    ';
+
+                    return $render;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('dashboard.dashboard');
     }
 
     public function create()
@@ -38,7 +69,8 @@ class ProductController extends Controller
 
     public function destroy($slug)
     {
-        $product = Product::where('slug', $slug)->first();
+        $slice = Str::before($slug, ' ');
+        $product = Product::where('slug', $slice)->first();
         $product->delete();
 
         return redirect('/dashboard/products')->with('deleted', 'Product deleted successfully');
@@ -46,7 +78,8 @@ class ProductController extends Controller
 
     public function updateForm($slug)
     {
-        $product = Product::where('slug', $slug)->first();
+        $slice = Str::before($slug, ' ');
+        $product = Product::where('slug', $slice)->first();
         return view('dashboard.update', [
             'product' => $product,
         ]);

@@ -34,7 +34,7 @@ Route::prefix('dashboard/products')->middleware('auth')->group(function () {
   Route::post('/create', [ProductController::class, 'store']);
   Route::get('/update/{slug}', [ProductController::class, 'updateForm']);
   Route::put('/update/{slug}', [ProductController::class, 'update']);
-  Route::delete('/delete/{slug}', [ProductController::class, 'destroy']);
+  Route::get('/delete/{slug}', [ProductController::class, 'destroy']);
 });
 
 Route::get('/register', [RegisterController::class, 'index']);

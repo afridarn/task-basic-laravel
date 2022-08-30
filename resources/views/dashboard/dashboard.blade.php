@@ -23,8 +23,8 @@
     @endif
 
     <div class="table-responsive col-lg-8 mx-auto">
-        <table class="table table-striped table-sm">
-            <thead class="text-center">
+        <table id="table-product" class="table table-striped table-sm">
+            <thead i class="text-center">
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
@@ -35,26 +35,52 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($products as $product)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $product->name }}</td>
-                        <td>{{ $product->price }}</td>
-                        <td>{{ $product->description }}</td>
-                        <td><img src="{{ $product->photo }}" alt="{{ $product->name }}" width="100"></td>
-                        <td>
-                            <form action="/dashboard/products/update/{{ $product->slug }}" method="GET">
-                                <button class="border-0 bg-warning text-white">Edit</button>
-                            </form>
-                            <form action="/dashboard/products/delete/{{ $product->slug }}" method="POST">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                                <button class="border-0 bg-danger text-white">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
             </tbody>
         </table>
     </div>
 </x-app-layout2>
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            var datatable;
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $(function() {
+                datatable = $('#table-product').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    // order: [
+                    //     [2, 'desc']
+                    // ],
+                    // pageLength: 2,
+                    // lengthMenu: [2, 10, 50, 100],
+                    // pagingType: "simple",
+                    ajax: "{{ url()->current() }}",
+                    columns: [{
+                            data: 'DT_RowIndex'
+                        },
+                        {
+                            data: 'name'
+                        },
+                        {
+                            data: 'price'
+                        },
+                        {
+                            data: 'description'
+                        },
+                        {
+                            data: 'photo'
+                        },
+                        {
+                            data: 'action'
+                        }
+                    ],
+                });
+            });
+        });
+    </script>
