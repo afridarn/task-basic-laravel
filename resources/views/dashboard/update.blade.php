@@ -1,4 +1,5 @@
-<x-app-layout2 title='Edit'>
+@extends('layouts.app')
+@section('content')
     <div class="row justify-content-center">
         <div class="col-lg-5">
             <main class="form-registration w-100 m-auto">
@@ -54,4 +55,4 @@
             </main>
         </div>
     </div>
-</x-app-layout2>
+@endsection

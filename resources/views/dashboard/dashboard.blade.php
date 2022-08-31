@@ -1,4 +1,5 @@
-<x-app-layout2 title='Dashboard'>
+@extends('layouts.app')
+@section('content')
     <div>
         <h1 class="text-center">Products in {{ auth()->user()->store->name }}</h1>
     </div>
@@ -35,13 +36,24 @@
                 </tr>
             </thead>
             <tbody>
+                {{-- @forelse ($product as $key => $item)
+                    <tr>
+                        <th scope="row">{{ ++$key }}</th>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->description }}</td>
+                        <td>{{ $item->photo }}</td>
+                        <td></td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center">No data</td>
+                    </tr>
+                @endforelse --}}
             </tbody>
         </table>
     </div>
-</x-app-layout2>
-
-@push('scripts')
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             var datatable;
             $.ajaxSetup({
@@ -83,4 +95,5 @@
                 });
             });
         });
-    </script>
+    </script> --}}
+@endsection

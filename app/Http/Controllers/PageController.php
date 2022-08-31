@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,21 +16,24 @@ class PageController extends Controller
         return view('about');
     }
 
-    public function login()
+    public function store()
     {
-        return view('login');
+
+        return view('dashboard.store.hasStore', [
+            'user' => Auth::user(),
+        ]);
     }
 
-    public function register()
-    {
-        return view('register');
-    }
-
-    public function dashboard()
+    public function create()
     {
         $user = Auth::user();
-        return view('dashboard', [
-            'products' => $user->store->product,
-        ]);
+        $store = new Store();
+        $store->name = request()->store;
+        $store->user_id = $user->id;
+        $store->save();
+
+        return view('dashboard.store.hasStore', [
+            'user' => $user,
+        ])->with('success', 'Store input successfully');
     }
 }
