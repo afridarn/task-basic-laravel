@@ -11,7 +11,7 @@
             <h3>Your Store: {{ $user->store->name }}</h3>
         </div>
         <div class="d-flex justify-content-center">
-            <a href="{{ route('dashboard') }}">Go to store page</a>
+            <a href="{{ route('dashboard') }}">Go to My Store >></a>
         </div>
     @else
         <div class="row justify-content-center mt-5">

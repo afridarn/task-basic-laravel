@@ -3,12 +3,11 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\RegisterController;
+
 
 
 
@@ -23,8 +22,6 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
-// Route::get('/', HomeController::class);
-
 Route::controller(PageController::class)->group(function () {
   Route::get('/about', 'about');
 });
@@ -36,6 +33,9 @@ Route::prefix('dashboard/products')->middleware('auth')->group(function () {
   Route::get('/update/{slug}', [ProductController::class, 'updateForm']);
   Route::put('/update/{slug}', [ProductController::class, 'update']);
   Route::get('/delete/{slug}', [ProductController::class, 'destroy']);
+  Route::get('/import', [ExcelController::class, 'index']);
+  Route::post('/import', [ExcelController::class, 'importProduct'])->name('import.product');
+  Route::get('/export', [ExcelController::class, 'exportProduct'])->name('export.product');
 });
 
 Route::prefix('dashboard/store')->middleware('auth')->group(function () {
@@ -54,7 +54,3 @@ Route::get('users/{user}', [UserController::class, 'show']);
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

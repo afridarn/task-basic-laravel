@@ -3,7 +3,9 @@
     <div class="mt-5">
         <h1 class="text-center">Products in {{ auth()->user()->store->name }}</h1>
     </div>
-    <p class="text-center"><a href="/dashboard/products/create">Add New Product</a></p>
+    <p class="text-center"><a href="/dashboard/products/create">Add New Product</a> | <a
+            href="/dashboard/products/import">Import Product</a> | <a href="{{ route('export.product') }}">Export Product</a>
+    </p>
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show col-lg-8 mx-auto" role="alert">
             {{ session('success') }}
@@ -11,13 +13,13 @@
         </div>
     @endif
     @if (session()->has('deleted'))
-        <div class="alert alert-info alert-dismissible fade show col-lg-8 mx-auto" role="alert">
+        <div class="alert alert-success alert-dismissible fade show col-lg-8 mx-auto" role="alert">
             {{ session('deleted') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     @if (session()->has('updated'))
-        <div class="alert alert-info alert-dismissible fade show col-lg-8 mx-auto" role="alert">
+        <div class="alert alert-success alert-dismissible fade show col-lg-8 mx-auto" role="alert">
             {{ session('updated') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -36,24 +38,10 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- @forelse ($product as $key => $item)
-                    <tr>
-                        <th scope="row">{{ ++$key }}</th>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->description }}</td>
-                        <td>{{ $item->photo }}</td>
-                        <td></td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="6" class="text-center">No data</td>
-                    </tr>
-                @endforelse --}}
             </tbody>
         </table>
     </div>
-    <div class="col-lg-8 mx-auto mt-3">
+    <div class="col-lg-8 mx-auto mt-3 mb-5">
         <a class="text-center" href="/">Back to dashboard</a>
     </div>
 @endsection
