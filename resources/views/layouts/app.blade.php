@@ -13,9 +13,12 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+
 </head>
 
 <body>
@@ -60,25 +63,24 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
 
-
-                                    <a class="dropdown-item" href="/dashboard/store">
+                                    <a class="dropdown-item" href="/dashboard/products">
                                         {{ __('My Store') }}
                                     </a>
 
-                                    <a class="dropdown-item" href="/dashboard/products">
+                                    <a class="dropdown-item" href="/">
                                         {{ __('My Dashboard') }}
                                     </a>
 
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
                                     {{-- <form id="logout-form" action="/dashboard/products" method="GET" class="d-none">
                                         @csrf
                                     </form> --}}
@@ -90,10 +92,13 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        {{-- <main class="py-4"> --}}
+        @yield('content')
+        {{-- </main> --}}
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    @stack('scripts')
 </body>
 
 </html>

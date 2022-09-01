@@ -39,16 +39,9 @@ Route::prefix('dashboard/products')->middleware('auth')->group(function () {
 });
 
 Route::prefix('dashboard/store')->middleware('auth')->group(function () {
-  Route::get('/', [PageController::class, 'store']);
+
   Route::post('/', [PageController::class, 'create']);
 });
-
-// Route::get('/register', [RegisterController::class, 'index']);
-// Route::post('/register', [RegisterController::class, 'store']);
-
-// Route::get('/login', [LoginController::class, 'index'])->middleware('guest')->name('login');
-// Route::post('/login', [LoginController::class, 'authenticate']);
-// Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('/blogs', [BlogController::class, 'index']);
 

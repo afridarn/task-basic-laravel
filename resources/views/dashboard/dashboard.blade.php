@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div>
+    <div class="mt-5">
         <h1 class="text-center">Products in {{ auth()->user()->store->name }}</h1>
     </div>
     <p class="text-center"><a href="/dashboard/products/create">Add New Product</a></p>
@@ -53,7 +53,13 @@
             </tbody>
         </table>
     </div>
-    {{-- <script>
+    <div class="col-lg-8 mx-auto mt-3">
+        <a class="text-center" href="/">Back to dashboard</a>
+    </div>
+@endsection
+
+@push('scripts')
+    <script>
         $(document).ready(function() {
             var datatable;
             $.ajaxSetup({
@@ -95,5 +101,5 @@
                 });
             });
         });
-    </script> --}}
-@endsection
+    </script>
+@endpush

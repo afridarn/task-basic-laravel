@@ -16,24 +16,25 @@ class ProductController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $data = $user->store->product;
 
-        if (request()->ajax()) {
-            return DataTables::of($data)
-                ->addIndexColumn()
-                ->addColumn('photo', function ($row) {
-                    $slug = $row->photo;
-                    $render2 =
-                        '
-                        <img src="' . $slug . ' alt="' . $row->name . '>
+        if ($user->store) {
+            $data = $user->store->product;
+            if (request()->ajax()) {
+                return DataTables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('photo', function ($row) {
+                        $slug = $row->photo;
+                        $render2 =
+                            '
+                        <img src="' . $slug . ' alt="' . $row->name . ' width="100" height"100">
                     ';
 
-                    return $render2;
-                })
-                ->addColumn('action', function ($row) {
-                    $slug = $row->slug;
-                    $render =
-                        '
+                        return $render2;
+                    })
+                    ->addColumn('action', function ($row) {
+                        $slug = $row->slug;
+                        $render =
+                            '
                         <form action="/dashboard/products/update/' . $slug . ' method="GET">
                                 <button class="btn btn-warning">Edit</button>
                             </form>
@@ -42,12 +43,17 @@ class ProductController extends Controller
                             </form>
                     ';
 
-                    return $render;
-                })
-                ->rawColumns(['photo', 'action'])
-                ->make(true);
+                        return $render;
+                    })
+                    ->rawColumns(['photo', 'action'])
+                    ->make(true);
+            }
+            return view('dashboard.dashboard');
+        } else {
+            return view('dashboard.store.hasStore', [
+                'user' => $user,
+            ]);
         }
-        return view('dashboard.dashboard');
     }
 
     public function create()
