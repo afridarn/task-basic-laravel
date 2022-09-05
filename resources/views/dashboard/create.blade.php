@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
     <div class="row justify-content-center">
-        <div class="col-lg-5">
+        <div class="col-lg-5 mt-5">
             <main class="form-registration w-100 m-auto">
                 <h1 class="h3 mb-3 fw-normal text-center">Add New Product</h1>
-                <form action="/dashboard/products/create" method="POST">
+                <form action="/dashboard/products/create" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-floating">
                         <input type="text" name="name"
@@ -40,8 +40,13 @@
                     </div>
                     <div class="form-floating">
                         <input type="text" name="photo" class="form-control @error('photo') is-invalid @enderror"
-                            id="photo" placeholder="photo" required">
+                            id="photo" placeholder="photo" required>
                         <label for="photo">URL Photo</label>
+                        {{-- <div class="mb-3">
+                            <label for="photo" class="form-label mt-2">Photo</label>
+                            <input class="form-control @error('photo') is-invalid @enderror" type="file" id="photo"
+                                name="photo">
+                        </div> --}}
                         @error('photo')
                             <div class="invalid-feedback">
                                 {{ $message }}

@@ -68,12 +68,12 @@
                                         @csrf
                                     </form>
 
-                                    <a class="dropdown-item" href="/dashboard/products">
-                                        {{ __('My Store') }}
-                                    </a>
-
                                     <a class="dropdown-item" href="/">
                                         {{ __('My Dashboard') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="/dashboard/products">
+                                        {{ __('My Store') }}
                                     </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
