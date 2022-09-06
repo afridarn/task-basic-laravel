@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use  App\Http\Controllers\API\StoreController;
+use App\Http\Controllers\API\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,5 +24,20 @@ Route::controller(AuthController::class)->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('user', 'user');
         Route::post('logout', 'logout');
+    });
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::controller(StoreController::class)->prefix('store')->group(function () {
+        Route::get('/', 'index');
+        Route::post('/', 'create');
+        Route::post('/update', 'update');
+    });
+
+    Route::controller(ProductController::class)->prefix('product')->group(function () {
+        Route::get('/', 'index');
+        Route::post('/', 'create');
+        Route::post('/update', 'update');
+        Route::delete('/', 'delete');
     });
 });
